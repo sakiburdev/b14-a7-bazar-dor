@@ -10,7 +10,7 @@ const Header = () => {
 
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
-    });
+    }); 
 
     useEffect(() => {
         const fetchCategories = async () => {
