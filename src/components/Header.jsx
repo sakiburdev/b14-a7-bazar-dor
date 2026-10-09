@@ -28,12 +28,11 @@ const Header = () => {
 
     return (
         <header className="border-b border-gray-200 bg-white">
-
             {/* Top Header */}
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-4 sm:py-4">
 
                 {/* Logo + Title */}
-                <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
 
                     {/* Logo */}
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#05893E] sm:h-[42px] sm:w-[42px] sm:rounded-[12px]">
@@ -58,7 +57,7 @@ const Header = () => {
                         </p>
                     </div>
 
-                </div>
+                </Link>
 
                 {/* Desktop Auth */}
                 <div className="hidden items-center gap-6 md:flex">
