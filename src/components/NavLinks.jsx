@@ -9,10 +9,10 @@ const NavLinks = ({ navs = [], mobile = false, closeMenu }) => {
         className={
           mobile
             ? "grid grid-cols-2 gap-2"
-            : "mx-22 max-w-7xl px-3 sm:px-1"
+            : "max-w-7xl px-3 sm:px-1"
         }
       >
-        
+
         <div
           className={
             mobile

@@ -10,12 +10,12 @@ const Header = () => {
 
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
-    }); 
+    });
 
     useEffect(() => {
         const fetchCategories = async () => {
             const res = await fetch(
-                "https://api.api-store.workers.dev/api/bazardor/categories"
+                "https://api.api-store.workers.dev/api/bazardor/categories",
             );
 
             const data = await res.json();

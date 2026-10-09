@@ -10,7 +10,6 @@ export default function HeroBanner() {
     return (
         <section className="w-full my-4 sm:my-6">
 
-            {/* Header Container-er sathe exact padding & width match kora */}
             <div className="mx-auto max-w-7xl px-3 sm:px-4">
 
                 <div className="bg-[#ffffff] border border-[#E1E8E1] rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-12">

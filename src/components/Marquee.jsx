@@ -64,10 +64,10 @@ const Marquee = async () => {
                                 {/* Price Change */}
                                 <span
                                     className={`ml-1 text-[10px] font-semibold sm:text-[11px] ${isUp
-                                            ? "text-red-600"
-                                            : isDown
-                                                ? "text-green-600"
-                                                : "text-gray-400"
+                                        ? "text-red-600"
+                                        : isDown
+                                            ? "text-green-600"
+                                            : "text-gray-400"
                                         }`}
                                 >
                                     {isUp && "▲"}

@@ -1,5 +1,4 @@
-
-const Footer = () => { //border-t border-gray-300
+const Footer = () => {
     return (
         <footer className="bg-white shadow-sm py-6 mt-12">
 

@@ -1,9 +1,13 @@
+import HeroBanner from "@/components/HeroBanner";
 
 
 export default function Home() {
-  return (
-    <div>
-        Home Page 
-    </div>
-  );
+    return (
+        <main className="space-y-6">
+
+            {/* Hero Banner */}
+            <HeroBanner />
+
+        </main>
+    );
 }
