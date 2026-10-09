@@ -1,4 +1,5 @@
 import HeroBanner from "@/components/HeroBanner";
+import PriceRisers from "@/components/home/PriceRisers";
 
 
 export default function Home() {
@@ -7,6 +8,11 @@ export default function Home() {
 
             {/* Hero Banner */}
             <HeroBanner />
+
+            {/* Products */}
+            <div className="mx-auto mb-12 max-w-7xl space-y-10 px-3 sm:px-4">
+                <PriceRisers />
+            </div>
 
         </main>
     );

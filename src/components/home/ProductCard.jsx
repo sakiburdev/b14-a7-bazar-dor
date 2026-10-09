@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
     const isFaller = product.change.dir === "down";
 
     const badgeStyle = isRiser
-        ? "bg-[#FDF2F2] text-[#D92D20]"
+        ? "bg-[#F0F5F0] rounded-xl text-[#D03739]"
         : isFaller
             ? "bg-[#E6F4EA] text-[#008A3E]"
             : "bg-[#F4F7F4] text-gray-600";
@@ -32,16 +32,16 @@ const ProductCard = ({ product }) => {
                 
                 {/* Product */}
                 <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F4F7F4]">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F0F5F0]">
                         <span className="text-2xl">{product.image}</span>
                     </div>
 
                     <div className="min-w-0">
-                        <h3 className="truncate text-base font-bold text-[#1D271F]">
+                        <h3 className="truncate text-base font-semibold text-[16px] text-[#1D271F]">
                             {product.nameBn}
                         </h3>
 
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="mt-1 text-[12px] font-normal text-[#1D271F]">
                             প্রতি {getUnit(product.unit)}
                         </p>
                     </div>
@@ -50,14 +50,14 @@ const ProductCard = ({ product }) => {
                 {/* Price */}
                 <div className="mt-5 flex items-end justify-between gap-3">
                     <div>
-                        <p className="text-[10px] text-gray-500">আজকের দাম</p>
+                        <p className="text-[12px] font-normal text-[#1D271F]">আজকের দাম</p>
 
-                        <div className="mt-1 flex items-baseline gap-1">
-                            <span className="text-lg font-extrabold text-[#1D271F] sm:text-xl">
+                        <div className="mt-1 flex items-baseline gap-1.5">
+                            <span className="text-lg font-bold text-[#1D271F] sm:text-xl">
                                 {Number(product.today).toLocaleString("bn-BD")}
                             </span>
 
-                            <span className="text-sm font-semibold text-[#1D271F]">টাকা</span>
+                            <span className="text-[14px] font-medium text-[#1D271F]">টাকা</span>
                         </div>
                     </div>
 
