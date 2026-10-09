@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
     const badgeStyle = isRiser
         ? "bg-[#F0F5F0] rounded-xl text-[#D03739]"
         : isFaller
-            ? "bg-[#E6F4EA] text-[#008A3E]"
+            ? "bg-[#F0F5F0] rounded-xl text-[#1A9951]"
             : "bg-[#F4F7F4] text-gray-600";
 
     const arrow = isRiser ? "▲" : isFaller ? "▼" : "—";

@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-const PriceRisers = () => {
+const PriceFallers = () => {
 
-const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -14,15 +14,15 @@ const [products, setProducts] = useState([]);
 
             const data = await res.json();
 
-            const risers = data
-                .filter((product) => product.change.dir === "up")
+            const fallers = data
+                .filter((product) => product.change.dir === "down")
                 .sort(
                     (a, b) =>
-                        b.change.pct - a.change.pct
+                        a.change.pct - b.change.pct
                 )
                 .slice(0, 6);
 
-            setProducts(risers);
+            setProducts(fallers);
         };
 
         fetchProducts();
@@ -37,12 +37,12 @@ const [products, setProducts] = useState([]);
 
             <div className="flex items-center gap-2">
 
-                <span className="text-[16px] text-[#D03739]">
-                    ▲
+                <span className="text-[16px] text-[#1A9951]">
+                    ▼
                 </span>
 
                 <h2 className="text-xl font-bold text-[#1D271F] sm:text-[20px]">
-                    আজ দাম বেড়েছে
+                    আজ দাম কমেছে
                 </h2>
 
             </div>
@@ -62,4 +62,4 @@ const [products, setProducts] = useState([]);
     );
 };
 
-export default PriceRisers;
+export default PriceFallers;
