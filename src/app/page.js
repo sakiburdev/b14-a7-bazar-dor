@@ -1,4 +1,5 @@
 import HeroBanner from "@/components/HeroBanner";
+import AllProducts from "@/components/home/AllProducts";
 import PriceFallers from "@/components/home/PriceFallers";
 import PriceRisers from "@/components/home/PriceRisers";
 
@@ -14,6 +15,7 @@ export default function Home() {
             <div className="mx-auto mb-12 max-w-7xl space-y-10 px-3 sm:px-4">
                 <PriceRisers />
                 <PriceFallers/>
+                <AllProducts/>
             </div>
 
         </main>

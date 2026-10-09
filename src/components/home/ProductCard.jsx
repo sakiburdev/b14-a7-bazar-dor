@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
         ? "bg-[#F0F5F0] rounded-xl text-[#D03739]"
         : isFaller
             ? "bg-[#F0F5F0] rounded-xl text-[#1A9951]"
-            : "bg-[#F4F7F4] text-gray-600";
+            : "bg-[#F0F5F0] rounded-xl text-[#1D271F]";
 
     const arrow = isRiser ? "▲" : isFaller ? "▼" : "—";
 
