@@ -83,15 +83,36 @@ const ProductDetails = async ({ params }) => {
 
     return (
         <main className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6">
-            {/* Breadcrumb Navigation */}
+
             <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-[#1D271F]">
-                <Link href="/" className="hover:text-[#05893E] transition-colors">
+                <Link
+                    href="/"
+                    className="hover:text-[#05893E] transition-colors"
+                >
                     হোম
                 </Link>
+
                 <span>&gt;</span>
-                <span>{product.categoryNameBn}</span>
+
+                {product.category ? (
+                    <Link
+                        href={`/category/${product.category}`}
+                        className="hover:text-[#05893E] transition-colors"
+                    >
+                        {product.categoryNameBn}
+                    </Link>
+                ) : (
+                    <span>{product.categoryNameBn}</span>
+                )}
+
                 <span>&gt;</span>
-                <span>{product.nameBn}</span>
+
+                <Link
+                    href={`/product/${product.slug}`}
+                    className="hover:text-[#05893E] font-semibold transition-colors"
+                >
+                    {product.nameBn}
+                </Link>
             </nav>
 
             {/* Main Product Card */}
