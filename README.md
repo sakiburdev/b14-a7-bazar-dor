@@ -1,3 +1,41 @@
+# 🛒 বাজার দর (BazarDor)
+
+**BazarDor** is a modern web application designed for viewing daily essential commodity prices, comparing category-based market rates, and managing user authentication and profiles seamlessly.
+
+---
+
+## 🛠️ Technologies Used
+### **Frontend:**
+- **Framework:** Next.js 16 (App Router)
+- **Library:** React 19
+- **Styling:** Tailwind CSS v4, Tailwind Turbopack
+- **Icons & UI:** `react-icons`, `react-marquee-text`
+- **Notifications:** `react-hot-toast`
+- **Authentication:** Better Auth (`better-auth`)
+- **Database:** MongoDB (`mongodb`)
+- **Database Adapter:** `@better-auth/mongo-adapter`
+
+## 🚀 Key Features
+1. **🔐 Secure Authentication (Better Auth):**
+   - Secure Email and Password Sign-Up and Sign-In with robust error handling.
+   - Google Social Login integration for quick and easy one-click authentication.
+
+2. **👤 User Profile Management & Dropdown UI:**
+   - Dynamic header featuring conditional rendering for authenticated and unauthenticated states.
+   - Professional dropdown menu and a dedicated `/profile` page to view and update user information.
+
+3. **📊 Dynamic Market Rates & Categories:**
+   - Real-time API integration to fetch and display category-wise essential commodity prices.
+   - Smooth navigation and responsive data tables.
+
+4. **📱 Fully Responsive & Mobile-Friendly Layout:**
+   - Custom mobile navigation and optimized UI tailored for mobile, tablet, and desktop devices.
+   - Custom-designed **404 Not Found** error page.
+
+5. **🔔 Real-Time Feedback & Notifications:**
+   - Integrated `react-hot-toast` for rich UI notifications across all user actions (sign-in, sign-up, profile updates, sign-out, and error alerts).
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
