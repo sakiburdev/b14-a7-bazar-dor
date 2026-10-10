@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const hindSiliguri = Hind_Siliguri({
   weight: ["300", "400", "500", "600", "700"],
@@ -23,16 +24,14 @@ export default function RootLayout({ children }) {
       className={`${hindSiliguri.variable} h-full antialiased`}
     >
       <body className="bg-[#F0F5F0] min-h-full flex flex-col">
+        <Toaster position="top-center" reverseOrder={false} />
         <Header />
-        <Marquee/>
-
-
+        <Marquee />
         {/* Main Content Area */}
         <main className="flex-1">
           {children}
         </main>
-
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

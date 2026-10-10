@@ -2,7 +2,9 @@ import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 
-const API_URL = "https://api.api-store.workers.dev/api/bazardor/products";
+// const API_URL = "https://api.api-store.workers.dev/api/bazardor/products";
+// const API_URL = "https://api.abcz.workers.dev/api/bazardor/products";
+const API_URL = "https://openapi.programming-hero.com/api/bazardor/products";
 
 const Marquee = async () => {
     const res = await fetch(API_URL, {

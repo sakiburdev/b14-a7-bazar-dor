@@ -16,7 +16,10 @@ const ProductDetails = async ({ params }) => {
     const { slug } = await params;
 
     const productsRes = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products",
+        // "https://api.api-store.workers.dev/api/bazardor/products",
+        // "https://api.abcz.workers.dev/api/bazardor/products",
+        "https://openapi.programming-hero.com/api/bazardor/products",
+
         { cache: "no-store" }
     );
     const products = await productsRes.json();
@@ -51,7 +54,9 @@ const ProductDetails = async ({ params }) => {
     }
 
     const res = await fetch(
-        `https://api.api-store.workers.dev/api/bazardor/products/${productInfo.id}`,
+        // `https://api.api-store.workers.dev/api/bazardor/products/${productInfo.id}`,
+        // `https://api.abcz.workers.dev/api/bazardor/products/${productInfo.id}`,
+        `https://openapi.programming-hero.com/api/bazardor/products/${productInfo.id}`,
         { cache: "no-store" }
     );
     const product = await res.json();

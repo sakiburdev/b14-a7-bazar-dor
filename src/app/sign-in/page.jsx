@@ -1,17 +1,72 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 const SignInPage = () => {
-
+    const router = useRouter();
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage(" ");
+
+        const formData = new FormData(e.target);
+        const user = Object.fromEntries(formData.entries());
+
+        const { password, email } = user;
+
+        if (!password) {
+            toast.error("দয়া করে পাসওয়ার্ড দিন।");
+            return;
+        }
+
+        const toastId = toast.loading("সাইন ইন হচ্ছে...");
+
+        try {
+            const { data, error } = await authClient.signIn.email({
+                email,
+                password,
+                callbackURL: "/",
+            });
+
+            if (error) {
+                let errorMsg = "সাইন ইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+                if (error.code === "INVALID_EMAIL_OR_PASSWORD" || error.status === 401) {
+                    errorMsg = "ইমেইল অথবা পাসওয়ার্ড ভুল হয়েছে!";
+                } else if (error.message) {
+                    errorMsg = error.message;
+                }
+
+                toast.error(errorMsg, { id: toastId });
+                return;
+            }
+
+            if (data) {
+                toast.success("সাইন ইন সফল হয়েছে!", { id: toastId });
+                router.push("/");
+                router.refresh();
+            }
+        } catch (err) {
+            toast.error("কোথাও কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।", { id: toastId });
+            console.error(err);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        const toastId = toast.loading("গুগল দিয়ে সাইন ইন হচ্ছে...");
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+        } catch (err) {
+            toast.error("গুগল সাইন ইন করতে সমস্যা হয়েছে।", { id: toastId });
+            console.error(err);
+        }
     };
 
     return (
@@ -90,31 +145,14 @@ const SignInPage = () => {
                         <div className="h-px flex-1 bg-[#DFE3DF]" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1">
                         <button
                             type="button"
-                            onClick={() =>
-                                setMessage(
-                                    "Google sign-in-এর জন্য Better Auth যুক্ত করতে হবে।"
-                                )
-                            }
+                            onClick={handleGoogleSignIn}
                             className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg border border-[#DFE7DF] px-2 py-2.5 text-xs font-medium text-[#263128] transition hover:bg-green-50 sm:text-sm"
                         >
                             <FcGoogle className="h-4 w-4 shrink-0" />
                             <span>Google দিয়ে চালিয়ে যান</span>
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setMessage(
-                                    "GitHub sign-in-এর জন্য Better Auth যুক্ত করতে হবে।"
-                                )
-                            }
-                            className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg border border-[#DFE7DF] px-2 py-2.5 text-xs font-medium text-[#263128] transition hover:bg-green-50 sm:text-sm"
-                        >
-                            <FaGithub className="h-4 w-4 shrink-0" />
-                            <span>GitHub দিয়ে চালিয়ে যান</span>
                         </button>
                     </div>
 

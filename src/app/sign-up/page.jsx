@@ -1,26 +1,65 @@
 "use client";
+import React from "react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 const SignUpPage = () => {
-
-    const [message, setMessage] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-
-    const handleSubmit = (e) => {
+    const router = useRouter();
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage("");
+
+        const formData = new FormData(e.target);
+        const user = Object.fromEntries(formData.entries());
+
+        const { password, confirmPassword, name, email } = user;
 
         if (password !== confirmPassword) {
-            setMessage("পাসওয়ার্ড দুটি মিলছে না। আবার চেষ্টা করুন।");
+            toast.error("পাসওয়ার্ড দুটি মিলছে না। আবার চেষ্টা করুন।");
             return;
         }
 
-        setMessage(" ");
+        const signUpPromise = authClient.signUp.email({
+            email,
+            password,
+            name,
+            callbackURL: "/",
+        });
+
+        toast.promise(signUpPromise, {
+            loading: "অ্যাকাউন্ট তৈরি হচ্ছে...",
+            success: "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
+            error: (err) => err?.message || "সাইন আপ করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+        });
+
+        try {
+            const { data, error } = await signUpPromise;
+            if (data) {
+                router.push("/");
+                router.refresh();
+            }
+            if (error) {
+                console.error(error);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleGoogleSignUp = async () => {
+        const toastId = toast.loading("গুগল দিয়ে রেজিস্ট্রেশন করা হচ্ছে...");
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+
+        } catch (err) {
+            toast.error("গুগল দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", { id: toastId });
+            console.error(err);
+        }
     };
 
     return (
@@ -96,8 +135,6 @@ const SignUpPage = () => {
                                 placeholder="কমপক্ষে ৮ অক্ষর"
                                 autoComplete="new-password"
                                 minLength={8}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
                                 required
                                 className="w-full rounded-lg border border-[#DFE7DF] bg-transparent px-3 py-2.5 text-sm text-[#1D271F] outline-none transition placeholder:text-gray-400 focus:border-green-600 focus:ring-2 focus:ring-green-100"
                             />
@@ -119,8 +156,6 @@ const SignUpPage = () => {
                                 placeholder="আবার লিখুন"
                                 autoComplete="new-password"
                                 minLength={8}
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
                                 className="w-full rounded-lg border border-[#DFE7DF] bg-transparent px-3 py-2.5 text-sm text-[#1D271F] outline-none transition placeholder:text-gray-400 focus:border-green-600 focus:ring-2 focus:ring-green-100"
                             />
@@ -133,15 +168,6 @@ const SignUpPage = () => {
                         >
                             অ্যাকাউন্ট তৈরি করুন
                         </button>
-
-                        {message && (
-                            <p
-                                role="status"
-                                className="text-center text-sm text-amber-700"
-                            >
-                                {message}
-                            </p>
-                        )}
                     </form>
 
                     {/* Divider */}
@@ -151,32 +177,14 @@ const SignUpPage = () => {
                         <div className="h-px flex-1 bg-[#DFE3DF]" />
                     </div>
 
-                    {/* Social Buttons */}
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1">
                         <button
                             type="button"
-                            onClick={() =>
-                                setMessage(
-                                    "Google sign-in-এর জন্য Better Auth যুক্ত করতে হবে।"
-                                )
-                            }
+                            onClick={handleGoogleSignUp}
                             className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg border border-[#DFE7DF] px-2 py-2.5 text-xs font-medium text-[#263128] transition hover:bg-green-50 sm:text-sm"
                         >
                             <FcGoogle className="h-4 w-4 shrink-0" />
                             <span>Google দিয়ে চালিয়ে যান</span>
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setMessage(
-                                    "GitHub sign-in-এর জন্য Better Auth যুক্ত করতে হবে।"
-                                )
-                            }
-                            className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg border border-[#DFE7DF] px-2 py-2.5 text-xs font-medium text-[#263128] transition hover:bg-green-50 sm:text-sm"
-                        >
-                            <FaGithub className="h-4 w-4 shrink-0" />
-                            <span>GitHub দিয়ে চালিয়ে যান</span>
                         </button>
                     </div>
 
@@ -204,7 +212,6 @@ const SignUpPage = () => {
             </div>
         </main>
     );
-
 };
 
 export default SignUpPage;

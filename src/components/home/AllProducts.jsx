@@ -5,11 +5,12 @@ import ProductCard from "./ProductCard";
 const AllProducts = () => {
 
     const [products, setProducts] = useState([]);
-
     useEffect(() => {
         const fetchProducts = async () => {
             const res = await fetch(
-                "https://api.api-store.workers.dev/api/bazardor/products"
+                // "https://api.api-store.workers.dev/api/bazardor/products"
+                // "https://api.abcz.workers.dev/api/bazardor/products"
+                "https://openapi.programming-hero.com/api/bazardor/products"
             );
 
             const data = await res.json();

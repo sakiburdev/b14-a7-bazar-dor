@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
     const [navs, setNavs] = useState([]);
@@ -15,11 +16,12 @@ const Header = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             const res = await fetch(
-                "https://api.api-store.workers.dev/api/bazardor/categories",
+                // "https://api.api-store.workers.dev/api/bazardor/categories"
+                // "https://api.abcz.workers.dev/api/bazardor/categories"
+                "https://openapi.programming-hero.com/api/bazardor/categories"
             );
 
             const data = await res.json();
-
             setNavs(data);
         };
 
@@ -39,8 +41,8 @@ const Header = () => {
                         <Image
                             src="/logo-icon.png"
                             alt="বাজার দর"
-                            width={25}
-                            height={25}
+                            width={20}
+                            height={20}
                             priority
                             className="object-contain"
                         />
@@ -60,23 +62,7 @@ const Header = () => {
                 </Link>
 
                 {/* Desktop Auth */}
-                <div className="hidden items-center gap-6 md:flex">
-
-                    <Link
-                        href="/sign-in"
-                        className="text-sm font-medium text-gray-700 transition hover:text-green-700"
-                    >
-                        সাইন ইন
-                    </Link>
-
-                    <Link
-                        href="/sign-up"
-                        className="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white shadow-md transition hover:bg-green-800"
-                    >
-                        সাইন আপ
-                    </Link>
-
-                </div>
+                <UserInfo />
 
                 {/* Mobile Menu Button */}
                 <button
@@ -111,25 +97,7 @@ const Header = () => {
                     />
 
                     {/* Mobile Auth */}
-                    <div className="mt-4 flex gap-2 border-t border-gray-100 pt-4">
-
-                        <Link
-                            href="/sign-in"
-                            onClick={() => setOpen(false)}
-                            className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-center text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-                        >
-                            সাইন ইন
-                        </Link>
-
-                        <Link
-                            href="/sign-up"
-                            onClick={() => setOpen(false)}
-                            className="flex-1 rounded-lg bg-green-700 px-3 py-2 text-center text-sm font-medium text-white transition hover:bg-green-800"
-                        >
-                            সাইন আপ
-                        </Link>
-
-                    </div>
+                    <UserInfo mobile={true} closeMenu={() => setOpen(false)} />
 
                 </div>
             )}
@@ -139,5 +107,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

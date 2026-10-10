@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const ProductCard = ({ product }) => {
-
     const getUnit = (unit) => {
         const units = {
             kg: "কেজি",
@@ -29,7 +28,7 @@ const ProductCard = ({ product }) => {
     return (
         <Link href={`/product/${product.slug}`} className="block">
             <div className="flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-[#E1E8E1] bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                
+
                 {/* Product */}
                 <div className="flex items-center gap-3">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F0F5F0]">

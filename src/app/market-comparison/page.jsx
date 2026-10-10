@@ -19,7 +19,9 @@ export default function MarketComparisonPage() {
             try {
                 setLoading(true);
                 const res = await fetch(
-                    "https://api.api-store.workers.dev/api/bazardor/products"
+                    // "https://api.api-store.workers.dev/api/bazardor/products"
+                    // "https://api.abcz.workers.dev/api/bazardor/products"
+                    "https://openapi.programming-hero.com/api/bazardor/products"
                 );
                 if (!res.ok) throw new Error("ডেটা লোড করা যায়নি");
                 const data = await res.json();

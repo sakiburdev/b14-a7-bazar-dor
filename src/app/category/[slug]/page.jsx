@@ -3,7 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-const API_BASE = "https://api.api-store.workers.dev/api/bazardor";
+// const API_BASE = "https://api.api-store.workers.dev/api/bazardor";
+// const API_BASE = "https://api.api-store.workers.dev/api/bazardor";
+const API_BASE = "https://openapi.programming-hero.com/api/bazardor";
 
 const getArray = (response, keys = []) => {
     if (Array.isArray(response)) return response;
