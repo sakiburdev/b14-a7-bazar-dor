@@ -42,7 +42,7 @@ const fetchJSON = async (url) => {
     const contentType = response.headers.get("content-type");
 
     if (!contentType?.includes("application/json")) {
-        throw new Error("API থেকে JSON data পাওয়া যায়নি।");
+        throw new Error("API থেকে JSON data পাওয়া যায়নি।");
     }
 
     return response.json();
@@ -171,7 +171,7 @@ export default function CategoryPage() {
                 console.error("Category API error:", err);
                 setError(
                     err.message ||
-                    "ডেটা লোড করা যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।",
+                    "ডেটা লোড করা যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।",
                 );
             } finally {
                 if (!cancelled) {
@@ -249,9 +249,38 @@ export default function CategoryPage() {
 
     const categoryIcon = category?.icon;
 
-    const categoryDesc =
-        category?.description ||
-        `${toBn(categoryProducts.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`;
+    const isEmpty = !loading && !error && sortedProducts.length === 0;
+
+    if (isEmpty) {
+        return (
+            <main className="flex min-h-[65vh] items-center justify-center bg-[#F5F7F5] px-4 py-12">
+                <div className="w-full max-w-2xl rounded-2xl border border-[#E3E8E3] bg-white p-10 text-center sm:p-16">
+                    <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-xl bg-[#F0F5F0] text-4xl">
+                        🔍
+                    </div>
+
+                    <h2 className="mt-5 text-4xl font-bold text-[#1D271F] sm:text-5xl">
+                        ৪০৪
+                    </h2>
+
+                    <p className="mt-3 text-base font-semibold text-[#1D271F] sm:text-lg">
+                        কোনো পণ্য পাওয়া যায়নি
+                    </p>
+
+                    <p className="mt-1.5 text-sm text-gray-500">
+                        এই ক্যাটাগরিতে কোনো আইটেম নেই অথবা লিঙ্কটি সঠিক নয়।
+                    </p>
+
+                    <Link
+                        href="/"
+                        className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#07883D] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#066b31]"
+                    >
+                        হোম পেজে ফিরে যান
+                    </Link>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <main className="min-h-screen bg-[#F5F7F5] pb-12">
@@ -268,9 +297,8 @@ export default function CategoryPage() {
                             <h1 className="text-xl font-bold text-[#1D271F] sm:text-2xl">
                                 {categoryName}
                             </h1>
-
-                            <p className="mt-0.5 text-sm text-gray-500">
-                                {categoryDesc}
+                            <p className="mt-1 text-sm text-gray-600">
+                                {toBn(sortedProducts.length)} টি পণ্যের আজকের দাম ও পরিবর্তন
                             </p>
                         </div>
                     </div>
@@ -323,10 +351,6 @@ export default function CategoryPage() {
                             />
                         ))}
                     </div>
-                ) : error ? null : sortedProducts.length === 0 ? (
-                    <div className="mt-6 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-500">
-                        এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি।
-                    </div>
                 ) : (
                     <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {sortedProducts.map((product, index) => (
@@ -367,18 +391,23 @@ function ProductCard({ product }) {
             </div>
 
             <div className="mt-4 flex items-end justify-between gap-2">
-                <p className="flex items-center text-xl font-bold text-[#07883D]">
-                    {toBn(price.toLocaleString("bn-BD"))}
-                    <span className="ml-2">টাকা</span>
-                </p>
+                <div className="flex flex-col">
+                    <span className="text-[12px] font-normal text-[#1D271F]">
+                        আজকের দাম
+                    </span>
+
+                    <p className="flex items-center text-xl font-bold text-[#1D271F]">
+                        {toBn(price.toLocaleString("bn-BD"))}
+                        <span className="ml-2 text-[14px] font-medium">টাকা</span>
+                    </p>
+                </div>
 
                 {isUp || isDown ? (
                     <span
                         className={`text-xs font-semibold bg-[#F0F5F0] px-2 py-1 rounded-xl ${isUp ? "text-red-500" : "text-green-600"
                             }`}
                     >
-                        {isUp ? "▲" : "▼"}{" "}
-                        {toBn(Math.abs(change))}%
+                        {isUp ? "▲" : "▼"} {toBn(Math.abs(change))}%
                     </span>
                 ) : (
                     <span className="text-xs font-semibold bg-[#F0F5F0] px-2 py-1 rounded-xl text-[#1D271F]">
